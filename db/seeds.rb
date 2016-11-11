@@ -5,5 +5,6 @@
 puts "Starting to seed db..."
 
 Rake::Task['load_data:add_people'].invoke
+Rake::Task['load_data:add_quotes'].invoke
 
 puts "Finished seeding db"

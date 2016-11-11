@@ -1,0 +1,17 @@
+.row
+  .col.s12
+    %h3
+      %strong= @person.first_name + " " + @person.last_name
+      \ // Quotes
+    %hr
+
+.row
+  %table.highlight
+    %thead
+      %tr
+        %td Quote
+
+    %tbody
+      - @quotes.each do |quote|
+        %tr
+          %td= quote.text

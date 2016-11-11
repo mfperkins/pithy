@@ -10,4 +10,12 @@ namespace :load_data do
     end
   end
 
+  task :add_quotes do
+    csv_text = File.read('lib/assets/quotes.csv')
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      Quote.create!(row.to_hash)
+    end
+  end
+
 end

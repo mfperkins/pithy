@@ -1,2 +1,2 @@
 - @people.each do |person|
-  %h3= person.first_name + " " + person.last_name
+  %h3= link_to person.first_name + " " + person.last_name, person_path(person.id)
