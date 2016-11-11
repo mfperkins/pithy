@@ -3,7 +3,6 @@ require 'rails_helper'
 feature 'List of all people' do
 
   before(:each) do
-    user_sign_up
     Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
     Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
   end
