@@ -1,0 +1,10 @@
+.row
+  .col.s8.offset-s2
+    %h3
+      Create a new quote for
+      =@person.nickname
+    = form_for @quote do |f|
+      .col.s12
+      %h5 What did they say?
+      = f.text_field(:text, placeholder: "The quote")
+      = f.button 'save quote', class: "btn waves-effect waves-light"
