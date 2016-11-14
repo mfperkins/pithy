@@ -1,9 +1,11 @@
-.row
-  .col.s12
-    %h3
+.row.valign-wrapper
+  .col.s9
+    %h3.valign
       %strong= @person.first_name + " " + @person.last_name
       \ // Quotes
-    %hr
+  .col.s3
+    %a.btn.waves-effect.waves-light.right.valign{:href => new_person_quote_path(@person.id)} Add quote
+%hr
 
 .row
   %table.highlight

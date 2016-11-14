@@ -15,8 +15,8 @@ feature 'List of all people' do
 
     scenario 'User logs in and sees a list of all people' do
       visit '/'
-      expect(page).to have_content "Trump"
-      expect(page).to have_content "Obama"
+      expect(page).to have_content "Donald Trump"
+      expect(page).to have_content "Barack Obama"
     end
 
   end
