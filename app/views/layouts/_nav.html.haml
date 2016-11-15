@@ -1,0 +1,45 @@
+%nav
+  .nav-wrapper
+    %a#logo.brand-logo{:href => people_path}
+      Pithy
+      %i.material-icons mic_none
+    %a.button-collapse{"data-activates" => "nav-mobile", :href => people_path}
+      %i.material-icons menu
+    %ul.right.hide-on-med-and-down
+      - if user_signed_in?
+        -# %li
+        -#   %a#test-new-1{:href => new_test_path}
+        -#     %i.material-icons note_add
+        -# %li
+        -#   %a#tests-all-1{:href => tests_path}
+        -#     %i.material-icons equalizer
+        %li
+          %a.dropdown-button{"data-activates" => "dropdown1", :href => "#!"}
+            = current_user.email
+            %i.material-icons.right arrow_drop_down
+      - else
+        %li
+          %a= link_to "Log In", new_user_session_path
+        %li
+          %a.btn.waves-effect.waves-light{:href => new_user_registration_path} Sign Up
+    %ul#nav-mobile.side-nav
+      - if user_signed_in?
+        -# %li
+        -#   %a#test-new{:href => new_test_path}
+        -#     Add A Test
+        -#     %i.material-icons note_add
+        -# %li
+        -#   %a#tests-all{:href => tests_path}
+        -#     See reports
+        -#     %i.material-icons equalizer
+        %li
+          = link_to "Sign out", destroy_user_session_path, :method => :delete
+      - else
+        %li
+          = link_to "Log In", new_user_session_path
+        %li
+          %a.btn.waves-effect.waves-light{:href => new_user_registration_path} Sign Up
+
+%ul#dropdown1.dropdown-content
+  %li
+    = link_to "Sign out", destroy_user_session_path, :method => :delete, id: "sign-out-1"

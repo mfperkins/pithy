@@ -12,7 +12,7 @@ feature 'See all quotes from a person' do
     scenario 'User can click on a name and see all quotes' do
       visit '/'
       click_on("Donald Trump")
-      expect(page.body).to have_content "Pithy Donald Trump // Quotes Add quote Quote Unbelieveable. Unbelievable."
+      expect(page).to have_content "Unbelieveable. Unbelievable."
     end
 
   end
