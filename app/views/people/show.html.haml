@@ -13,10 +13,15 @@
       %tr
         %td
           %h5 Quote
+        %td
+          %h5
+        %td
+          %h5
 
     %tbody
       - @quotes.each do |quote|
         %tr
           %td.flow-text= quote.text
-          %td=link_to "Edit", edit_quote_path(quote.id), class: "active"
-          %td=link_to "Delete", quote_path(quote.id), :method => :delete, class: "active"
+          - if user_signed_in? && current_user.id == quote.user_id
+            %td=link_to "Edit", edit_quote_path(quote.id), class: "active"
+            %td=link_to "Delete", quote_path(quote.id), :method => :delete, class: "active"

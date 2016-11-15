@@ -9,7 +9,7 @@ module FeatureHelpers
     click_on("Sign up")
   end
 
-  def user_sign_out(email = 'test2@email.com')
+  def user_sign_out(email = 'test@email.com')
     visit '/'
     click_on email
     click_on 'sign-out-1'

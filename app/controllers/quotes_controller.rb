@@ -1,14 +1,19 @@
 class QuotesController < ApplicationController
 
   def new
-    get_person
-    @quote = @person.quotes.new
+    if user_signed_in?
+      get_person
+      @quote = @person.quotes.new
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def create
     get_person
     @quote = @person.quotes.new(quote_params)
     if @quote.save
+      @quote.update(user_id: current_user.id)
       redirect_to person_path(@quote.person_id)
     else
       redirect_to new_person_quote_path(@quote.person_id)
