@@ -7,11 +7,7 @@ feature 'List of all people' do
     Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
   end
 
-  context 'User logged in' do
-
-    before(:each) do
-
-    end
+  context 'User not logged in' do
 
     scenario 'User logs in and sees a list of all people' do
       visit '/'
