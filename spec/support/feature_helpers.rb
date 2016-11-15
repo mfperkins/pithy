@@ -22,4 +22,12 @@ module FeatureHelpers
     click_button("Log in")
   end
 
+  def create_quote(name = "Donald Trump", quote = "It's just great. Great.")
+    visit '/'
+    click_on(name)
+    click_on("Add quote")
+    fill_in 'quote[text]', with: quote
+    click_on("save quote")
+  end
+
 end
