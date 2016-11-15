@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
 
   def show
     session[:person_id] = params[:id]
-    @person = Person.find(params[:id])
+    @person = Person.friendly.find(params[:id])
     @quotes = Quote.where(person_id: @person.id)
   end
 

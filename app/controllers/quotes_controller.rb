@@ -38,7 +38,7 @@ class QuotesController < ApplicationController
   private
 
   def get_person
-    @person = Person.find(session[:person_id])
+    @person = Person.friendly.find(session[:person_id])
   end
 
   def quote_params

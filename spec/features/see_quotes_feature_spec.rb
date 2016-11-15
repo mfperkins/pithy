@@ -10,8 +10,7 @@ feature 'See all quotes from a person' do
   context 'User logged in' do
 
     scenario 'User can click on a name and see all quotes' do
-      visit '/'
-      click_on("Donald Trump")
+      visit '/people/trump'
       expect(page).to have_content "Unbelieveable. Unbelievable."
     end
 

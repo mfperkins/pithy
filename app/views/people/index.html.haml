@@ -1,4 +1,4 @@
 %h3 All People
 %hr
 - @people.each do |person|
-  %h4= link_to person.first_name + " " + person.last_name, person_path(person.id)
+  %h4= link_to person.first_name + " " + person.last_name, person_path(person.nickname)
