@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.find(params[:id])
+    @person = Person.friendly.find(params[:id])
     @quotes = Quote.where(person_id: @person.id)
   end
 end
