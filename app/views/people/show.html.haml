@@ -11,9 +11,12 @@
   %table.highlight
     %thead
       %tr
-        %td Quote
+        %td
+          %h5 Quote
 
     %tbody
       - @quotes.each do |quote|
         %tr
-          %td= quote.text
+          %td.flow-text= quote.text
+          %td=link_to "Edit", edit_quote_path(quote), class: "active"
+          %td=link_to "Delete", quote_path(quote), :method => :delete, class: "active"
