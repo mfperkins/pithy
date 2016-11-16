@@ -17,4 +17,17 @@ feature 'List of all people' do
 
   end
 
+  context 'User logged in' do
+
+    before(:each) do
+      user_sign_up
+    end
+
+    scenario 'User can create a new person' do
+      add_person
+      expect(page).to have_content "Winston Churchill"
+    end
+
+  end
+
 end
