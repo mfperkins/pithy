@@ -21,11 +21,26 @@ feature 'List of all people' do
 
     before(:each) do
       user_sign_up
+      add_person
     end
 
     scenario 'User can create a new person' do
-      add_person
+      visit '/'
       expect(page).to have_content "Winston Churchill"
+    end
+
+    scenario 'User can edit a person they created' do
+      visit '/'
+      click_on 'Edit'
+      fill_in 'person[first_name]', with: "Mr"
+      click_on 'save person'
+      expect(page).to have_content "Mr Churchill"
+    end
+
+    scenario 'User can edit a person they created' do
+      visit '/'
+      click_on 'Delete'
+      expect(page).to_not have_content "Winston Churchill"
     end
 
   end

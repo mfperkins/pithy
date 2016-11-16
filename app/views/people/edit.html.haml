@@ -1,0 +1,6 @@
+.row
+  .col.s8.offset-s2
+    %h3
+      %strong= @person.first_name + " " + @person.last_name
+      \ // Edit
+    = render 'people/form'

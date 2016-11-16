@@ -6,3 +6,5 @@
 * Set up a /pithy [person] [mood] command in Slack
 * Set types for quotes
 * Put up / down vote together for quotes
+* Add db constraint on uniqueness of person (check fname, lname, nickname)
+* Turn people into cards

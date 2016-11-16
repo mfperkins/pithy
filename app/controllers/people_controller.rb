@@ -18,12 +18,30 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     if @person.save
-      puts params[:nickname]
       @person.update(user_id: current_user.id)
       redirect_to root_path
     else
       redirect_to new_person_path
     end
+  end
+
+  def edit
+    @person = Person.find(params[:id])
+  end
+
+  def update
+    @person = Person.friendly.find(params[:id])
+    @person.update(person_params)
+    if @person.save
+      redirect_to root_path
+    else
+      redirect_to edit_person_path
+    end
+  end
+
+  def destroy
+    Person.delete(params[:id])
+    redirect_to root_path
   end
 
   private
