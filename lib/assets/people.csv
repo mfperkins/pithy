@@ -1,4 +1,4 @@
-id,first_name,last_name,nickname,created_at,updated_at,slug
+id,first_name,last_name,nickname,created_at,updated_at,slug,user_id
 1,Donald,Trump,trump,,,trump
 2,Barack,Obama,obama,,,obama
 3,Vladimir,Putin,putin,,,putin
