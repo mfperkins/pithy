@@ -1,0 +1,9 @@
+.row
+  %table.highlight
+    %tbody
+      - @people.each do |person|
+        %tr
+          %td.flow-text= link_to person.first_name + " " + person.last_name, person_path(person.nickname)
+          - if user_signed_in? && current_user.id == person.user_id
+            %td=link_to "Edit", edit_person_path(person.id), class: "active"
+            %td=link_to "Delete", person_path(person.id), :method => :delete, class: "active"
