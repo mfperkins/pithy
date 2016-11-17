@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :people, only: [:index, :show] do
+  resources :people do
     resources :quotes, only: [:new]
   end
 

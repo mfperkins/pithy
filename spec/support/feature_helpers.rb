@@ -30,4 +30,13 @@ module FeatureHelpers
     click_on("save quote")
   end
 
+  def add_person(first_name = "Winston", last_name = "Churchill", nickname = "Churchill")
+    visit '/'
+    click_on 'note_add'
+    fill_in 'person[first_name]', with: first_name
+    fill_in 'person[last_name]', with: last_name
+    fill_in 'person[nickname]', with: nickname
+    click_on "save"
+  end
+
 end
