@@ -32,7 +32,7 @@ module FeatureHelpers
 
   def add_person(first_name = "Winston", last_name = "Churchill", nickname = "Churchill")
     visit '/'
-    click_on 'note_add'
+    click_on 'perm_identity'
     fill_in 'person[first_name]', with: first_name
     fill_in 'person[last_name]', with: last_name
     fill_in 'person[nickname]', with: nickname
