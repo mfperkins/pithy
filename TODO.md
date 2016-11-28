@@ -1,3 +1,4 @@
+### Nov 28
 * Turn people#new into a pop out menu from navbar
 * Add autocomplete to that form
 * Turn quote#new into a pop out menu from navbar
