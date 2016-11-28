@@ -9,12 +9,29 @@ describe "Slack API" do
 
     post '/api/v1/slack', params: {
       token: ENV.fetch('SLACK_TOKENS'),
+      "user_name"=>"mfperkins",
       "command"=>"/pithy",
       "text"=>"trump"
     }
 
     expect(response).to be_success
-    expect(response.body).to eq("Unbelievable. Unbelievable.")
+    expect(response.body).to eq({
+    "attachments": [
+        {
+            "fallback": "As Donald Trump would say ... Unbelievable, Unbelievable",
+            "color": "#ffb300",
+            "title": "As Donald Trump would say...",
+            "title_link": "/people/trump",
+            "fields": [
+                {
+                    "title": "Unbelieveable. Unbelievable",
+                    "short": false
+                }
+            ],
+            "footer": "posted by @mfperkins"
+        }
+      ]
+    })
   end
 
 end
