@@ -17,4 +17,4 @@ class Slack::Responder
 
  attr_reader :message
 
-ends
+end
