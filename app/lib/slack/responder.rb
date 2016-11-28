@@ -9,8 +9,8 @@ class Slack::Responder
  end
 
  def response
-   person = Person.friendly.find(params[:text])
-   @response ||= person.quotes.select(:id, :text).sample
+   person = Person.friendly.find(@message)
+   @response ||= person.quotes.select(:id, :text).sample['text']
  end
 
  private
