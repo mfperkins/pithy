@@ -1,4 +1,4 @@
-class SlackController < ApplicationController
+class Api::V1::SlackController < ApplicationController
 
  skip_before_filter :verify_authenticity_token
  before_filter :verify_slack_token
