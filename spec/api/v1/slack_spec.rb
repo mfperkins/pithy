@@ -15,23 +15,9 @@ describe "Slack API" do
     }
 
     expect(response).to be_success
-    expect(response.body).to eq({
-    "attachments": [
-        {
-            "fallback": "As Donald Trump would say ... Unbelievable, Unbelievable",
-            "color": "#ffb300",
-            "title": "As Donald Trump would say...",
-            "title_link": "/people/trump",
-            "fields": [
-                {
-                    "title": "Unbelieveable. Unbelievable",
-                    "short": false
-                }
-            ],
-            "footer": "posted by @mfperkins"
-        }
-      ]
-    })
+    expect(response.body).to eq(
+    "{\"attachments\":[{\"fallback\":\"Unbelievable. Unbelievable.\",\"color\":\"#ffb300\",\"title\":\"As Donald Trump would say...\",\"title_link\":\"https://impithy.herokuapp.com/people/trump\",\"fields\":[{\"title\":\"Unbelievable. Unbelievable.\",\"short\":false}],\"footer\":\"posted by mfperkins\"}]}"
+    )
   end
 
 end

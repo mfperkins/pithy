@@ -13,7 +13,7 @@ def create
              "fallback": responder.response.to_s,
              "color": "#ffb300",
              "title": "As #{responder.get_name} would say...",
-             "title_link": "https://iampithy.herokuapp.com" + responder.get_link.to_s,
+             "title_link": "https://impithy.herokuapp.com" + responder.get_link.to_s,
              "fields": [
                  {
                      "title": responder.response.to_s,
