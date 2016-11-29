@@ -1,7 +1,11 @@
+require 'json'
+
 class Slack::Responder
 
-  def initialize(nickname)
+  def initialize(nickname, user_name)
+    @the_response = {}
     @nickname = nickname
+    @user_name = user_name
   end
 
   def respond?
@@ -9,16 +13,15 @@ class Slack::Responder
   end
 
   def response
-    if @nickname == nil || @nickname.empty?
-      "Hello this is Pithy! Please tell me which esteemed leader you are looking for (e.g. '/pithy trump')"
+    if @nickname == "help"
+      build_help_response
+    elsif @nickname == nil || @nickname.empty?
+      build_no_nickname_response
     else
       get_person
-      if @person != nil
-        @response ||= @person.quotes.select(:id, :text).sample['text']
-      else
-        "Oops. Sorry, I couldn't find that person. Try again! (e.g. '/pithy trump')"
-      end
+      @person == nil ? build_no_person_response : build_person_response
     end
+    the_response
   end
 
   def get_name
@@ -29,8 +32,9 @@ class Slack::Responder
     link
   end
 
-
   private
+
+  attr_reader :message, :name, :link, :the_response
 
   def get_person
     @person = Person.friendly.find(@nickname)
@@ -39,6 +43,43 @@ class Slack::Responder
     rescue ActiveRecord::RecordNotFound
   end
 
-  attr_reader :message, :name, :link
+  def get_quote
+    @response ||= @person.quotes.select(:id, :text).sample['text']
+  end
+
+  def help_text
+
+  end
+
+  def build_help_response
+    @the_response[:response_type] = "ephemeral"
+    @the_response[:text] = "*How to use /pithy*"
+    @the_response[:attachments] = [{}]
+    @the_response[:attachments][0]["text"] = "Hi @#{@user_name}! To get started, just type `/pithy` plus the name of an esteemed leader.\n\n For example, `/pithy trump` will return a wonderful quote from Donald Trump, such as 'Unbelievable. Unbelievable.'\n\n Isn't that unbelievable?!"
+    @the_response[:attachments][0]["mrkdwn_in"] = ["text"]
+  end
+
+  def build_person_response
+    @the_response[:response_type] = "in_channel"
+    @the_response[:attachments] = [{}]
+    @the_response[:attachments][0] = {fields: [{}]}
+    @the_response[:attachments][0]["fallback"] = get_quote.to_s
+    @the_response[:attachments][0]["color"] = "#ffb300"
+    @the_response[:attachments][0]["title"] = "As #{get_name} would say..."
+    @the_response[:attachments][0]["title_link"] = "https://impithy.herokuapp.com" + get_link.to_s
+    @the_response[:attachments][0][:fields][0]["title"] = get_quote.to_s
+    @the_response[:attachments][0][:fields][0]["short"] = false
+    @the_response[:attachments][0][:footer] = "posted by @#{@user_name}"
+  end
+
+  def build_no_person_response
+    @the_response[:response_type] = "ephemeral"
+    @the_response[:text] = "Oops. Sorry @#{@user_name}, I couldn't find that person. Try again! (e.g. `/pithy trump`)"
+  end
+
+  def build_no_nickname_response
+    @the_response[:response_type] = "ephemeral"
+    @the_response[:text] = "Hello @#{@user_name}, this is Pithy! Please tell me which esteemed leader you are looking for (e.g. `/pithy trump`)"
+  end
 
 end
