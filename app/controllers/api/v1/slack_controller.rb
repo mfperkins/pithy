@@ -5,25 +5,13 @@ class Api::V1::SlackController < ApplicationController
 
   def create
     render nothing: true, status: :ok and return unless responder.respond?
-
     if params[:command].present?
-      render json: {
-        "response_type": "in_channel",
-        "attachments": [
-        {
-          "fallback": responder.response.to_s,
-          "color": "#ffb300",
-          "title": "As #{responder.get_name} would say...",
-          "title_link": "https://impithy.herokuapp.com" + responder.get_link.to_s,
-        "fields": [ {
-                    "title": responder.response.to_s,
-                    "short": false
-                  } ],
-        "footer": "posted by #{params[:user_name]}"
-        } ]
-        }
+      render json: responder.response.to_s
     else
-      render json: { text: "Oops, I didn't understand that. Try '/pithy help' for tips." }
+      render json: {
+        "response_type": "ephemeral",
+	       "text": "Sorry @#{params[:user_name]}, I didn't understand that. Try `/pithy help` for tips."
+       }
     end
 
   end
@@ -31,7 +19,7 @@ class Api::V1::SlackController < ApplicationController
   private
 
   def responder
-    @responder ||= Slack::Responder.new(params[:text])
+    @responder ||= Slack::Responder.new(params[:text], params[:user_name])
   end
 
   def verify_slack_token
