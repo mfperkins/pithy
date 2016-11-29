@@ -1,3 +1,5 @@
+require 'json'
+
 class Api::V1::SlackController < ApplicationController
 
   skip_before_action :verify_authenticity_token
@@ -6,7 +8,7 @@ class Api::V1::SlackController < ApplicationController
   def create
     render nothing: true, status: :ok and return unless responder.respond?
     if params[:command].present?
-      render json: responder.response.to_s
+      render json: responder.response.to_json
     else
       render json: {
         "response_type": "ephemeral",
