@@ -8,6 +8,7 @@ def create
 
  if params[:command].present?
    render json: {
+     "response_type": "in_channel",
      "attachments": [
          {
              "fallback": responder.response.to_s,
