@@ -9,7 +9,26 @@ feature 'List of all people' do
 
   context 'User not logged in' do
 
-    scenario 'User logs in and sees a list of all people' do
+    require 'rails_helper'
+
+    feature 'Homepage' do
+
+      context 'User sees Slack Install button & welcome message' do
+
+        scenario 'user not logged in' do
+          visit '/'
+          expect(page).to have_selector(:link_or_button, 'Add to Slack')
+          within '#welcome-quote' do
+            expect(page).to have_content "Too much agreement kills a chat - Eldridge Cleaver"
+          end
+        end
+
+      end
+
+    end
+
+
+    scenario 'User sees a list of all people' do
       visit '/'
       expect(page).to have_content "Donald Trump"
       expect(page).to have_content "Barack Obama"
