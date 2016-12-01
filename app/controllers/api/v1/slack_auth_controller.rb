@@ -32,7 +32,7 @@ class Api::V1::SlackAuthController < ApplicationController
     code = params[:code]
     client_id = ENV.fetch('SLACK_CLIENT_ID')
     client_secret = ENV.fetch('SLACK_CLIENT_SECRET')
-    slack_reponse = HTTParty.get("https://slack.com/api/oauth.access&client_id=" + client_id + "&client_secret=" + client_secret + "&code=" + code)
+    slack_response = HTTParty.get("https://slack.com/api/oauth.access&client_id=" + client_id + "&client_secret=" + client_secret + "&code=" + code)
     puts slack_response
   end
 
