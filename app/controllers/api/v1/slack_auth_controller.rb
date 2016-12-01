@@ -11,7 +11,7 @@ class Api::V1::SlackAuthController < ApplicationController
   end
 
   def index
-    @state = Slack_State.find(params[:state])
+    @state = Slack_State.find_by(state: params[:state])
     if params[:state] = @state.state
       create_team
       redirect_to root_path
