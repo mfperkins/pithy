@@ -33,13 +33,15 @@ class Api::V1::SlackAuthController < ApplicationController
     client_id = ENV.fetch('SLACK_CLIENT_ID')
     client_secret = ENV.fetch('SLACK_CLIENT_SECRET')
     url = URI.parse("https://slack.com/api/oauth.access?client_id=" + client_id + "&client_secret=" + client_secret + "&code=" + code)
+    res = HTTParty.get(url.to_s)
     puts url
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.request(req)
-    }
-    puts res.body
-    
+    puts res
+    # req = Net::HTTP::Get.new(url.to_s)
+    # res = Net::HTTP.start(url.host, url.port) {|http|
+    #   http.request(req)
+    # }
+    # puts res.body
+
   end
 
 end
