@@ -12,8 +12,9 @@ class Api::V1::SlackAuthController < ApplicationController
 
   def index
     @state = Slack_State.find_by(state: params[:state])
-    if params[:state] = @state.state
-      create_team
+    create_team if params[:state] = @state.state
+    if @team.save
+      puts Team.last.inspect
       redirect_to root_path
       flash[:notice] = "Success! You added Pithy to your Slack Team"
     else
@@ -36,14 +37,16 @@ class Api::V1::SlackAuthController < ApplicationController
     res = HTTParty.get(url.to_s)
     puts url
     puts res
-    # req = Net::HTTP::Get.new(url.to_s)
-    # res = Net::HTTP.start(url.host, url.port) {|http|
-    #   http.request(req)
-    # }
-    # puts res.body
-
-    {"ok"=>true, "access_token"=>"xoxp-99706781393-101093522870-111575416004-bb07ac689e829cebc31e9e566b040d33", "scope"=>"identify,commands,incoming-webhook", "user_id"=>"U2Z2RFCRL", "team_name"=>"silence", "team_id"=>"T2XLSNZBK", "incoming_webhook"=>{"channel"=>"#general", "channel_id"=>"C2XLSPMHP", "configuration_url"=>"https://silense.slack.com/services/B39H7R0H3", "url"=>"https://hooks.slack.com/services/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"}}
-
+    @team = Team.new(  team_id: res['team_id'],
+                          scope: res['scope'],
+                          team_name: res['team_name'],
+                          channel_name: res['incoming_webhook']['channel'],
+                          channel_id: res['incoming_webhook']['channel_id'],
+                          url: res['incoming_webhook']['url'],
+                          configuration_url: res['incoming_webhook']['channel_id'],
+                          token: res['access_token'],
+                          scope: res['scope']
+                        )
   end
 
 end
