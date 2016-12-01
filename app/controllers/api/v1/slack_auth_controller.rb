@@ -42,6 +42,8 @@ class Api::V1::SlackAuthController < ApplicationController
     # }
     # puts res.body
 
+    {"ok"=>true, "access_token"=>"xoxp-99706781393-101093522870-111575416004-bb07ac689e829cebc31e9e566b040d33", "scope"=>"identify,commands,incoming-webhook", "user_id"=>"U2Z2RFCRL", "team_name"=>"silence", "team_id"=>"T2XLSNZBK", "incoming_webhook"=>{"channel"=>"#general", "channel_id"=>"C2XLSPMHP", "configuration_url"=>"https://silense.slack.com/services/B39H7R0H3", "url"=>"https://hooks.slack.com/services/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"}}
+
   end
 
 end
