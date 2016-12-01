@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116181921) do
+ActiveRecord::Schema.define(version: 20161201160100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,21 @@ ActiveRecord::Schema.define(version: 20161116181921) do
     t.integer  "user_id"
     t.index ["person_id"], name: "index_quotes_on_person_id", using: :btree
     t.index ["user_id"], name: "index_quotes_on_user_id", using: :btree
+  end
+
+  create_table "slack_states", force: :cascade do |t|
+    t.string "state"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "team_id"
+    t.text   "team_name"
+    t.string "channel_name"
+    t.string "channel_id"
+    t.text   "url"
+    t.text   "configuration_url"
+    t.string "token"
+    t.string "scope"
   end
 
   create_table "users", force: :cascade do |t|
