@@ -4,7 +4,7 @@ describe "Slack Authentication" do
 
   context 'Successful authentication' do
 
-    it 'Store a random state on button-click' do
+    xit 'Store a random state on button-click' do
 
       visit '/'
       click_on 'Add to Slack'
