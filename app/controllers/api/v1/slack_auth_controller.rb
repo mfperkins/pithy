@@ -39,6 +39,7 @@ class Api::V1::SlackAuthController < ApplicationController
       http.request(req)
     }
     puts res.body
+    
   end
 
 end
