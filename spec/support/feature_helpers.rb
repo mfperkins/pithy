@@ -30,12 +30,13 @@ module FeatureHelpers
     click_on("save quote")
   end
 
-  def add_person(first_name = "Winston", last_name = "Churchill", nickname = "Churchill")
+  def add_person(first_name = "Winston", last_name = "Churchill", nickname = "Churchill", img_path = 'spec/support/churchill.jpg')
     visit '/'
     click_on 'perm_identity'
     fill_in 'person[first_name]', with: first_name
     fill_in 'person[last_name]', with: last_name
     fill_in 'person[nickname]', with: nickname
+    page.attach_file('person[image]', Rails.root + img_path)
     click_on "save"
   end
 

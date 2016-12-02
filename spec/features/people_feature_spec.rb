@@ -2,33 +2,22 @@ require 'rails_helper'
 
 feature 'List of all people' do
 
-  before(:each) do
-    Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
-    Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
-  end
-
   context 'User not logged in' do
 
-    require 'rails_helper'
-
-    feature 'Homepage' do
-
-      context 'User sees Slack Install button & welcome message' do
-
-        scenario 'user not logged in' do
-          visit '/'
-          expect(page).to have_selector(:link_or_button, 'Add to Slack')
-          within '#welcome-quote' do
-            expect(page).to have_content "Too much agreement kills a chat - Eldridge Cleaver"
-          end
-        end
-
-      end
-
+    before(:each) do
+      Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
+      Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
     end
 
+    scenario 'User sees slack button & welcome message' do
+      visit '/'
+      expect(page).to have_selector(:link_or_button, 'Add to Slack')
+      within '#welcome-quote' do
+        expect(page).to have_content "Too much agreement kills a chat - Eldridge Cleaver"
+      end
+    end
 
-    scenario 'User sees a list of all people' do
+    scenario 'User cards of all people' do
       visit '/'
       expect(page).to have_content "Donald Trump"
       expect(page).to have_content "Barack Obama"
@@ -46,6 +35,7 @@ feature 'List of all people' do
     scenario 'User can create a new person' do
       visit '/'
       expect(page).to have_content "Winston Churchill"
+      expect(page.find('.card-image')['src']).to have_content("")
     end
 
     scenario 'User can edit a person they created' do

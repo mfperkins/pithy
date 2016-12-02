@@ -1,9 +1,13 @@
 .row
-  %table.highlight
-    %tbody
-      - @people.each do |person|
-        %tr
-          %td.flow-text= link_to person.first_name + " " + person.last_name, person_path(person.nickname)
-          - if user_signed_in? && current_user.id == person.user_id
-            %td=link_to "Edit", edit_person_path(person.id), class: "active"
-            %td=link_to "Delete", person_path(person.id), :method => :delete, class: "active"
+  - @people.each do |person|
+    .col.s4.m4
+      .card
+        .card-image.waves-effect.waves-block.waves-light
+          = link_to image_tag(person.image.url(:medium)), person_path(person.nickname)
+        .card-content
+          %span.card-title.activator.grey-text.text-darken-4
+            = link_to person.first_name + " " + person.last_name, person_path(person.nickname)
+        - if user_signed_in? && current_user.id == person.user_id
+          .card-action
+            =link_to "Edit", edit_person_path(person.id), class: "active"
+            =link_to "Delete", person_path(person.id), :method => :delete, class: "active"

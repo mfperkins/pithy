@@ -1,8 +1,11 @@
-= form_for @person do |f|
+= form_for @person, html: {multipart: true} do |f|
   = f.label "First Name"
   = f.text_field(:first_name, placeholder: "e.g. Winston")
   = f.label "Last Name"
   = f.text_field(:last_name, placeholder: "e.g. Churchill")
   = f.label "Nickname"
   = f.text_field(:nickname, placeholder: "churchill")
+  = f.label "Profile picture"
+  = f.file_field :image
+  %br
   = f.button 'save person', class: "btn waves-effect waves-light right"
