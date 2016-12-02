@@ -37,16 +37,16 @@ class Api::V1::SlackAuthController < ApplicationController
     res = HTTParty.get(url.to_s)
     puts url
     puts res
-    @team = Team.new(  team_id: res['team_id'],
-                          scope: res['scope'],
-                          team_name: res['team_name'],
-                          channel_name: res['incoming_webhook']['channel'],
-                          channel_id: res['incoming_webhook']['channel_id'],
-                          url: res['incoming_webhook']['url'],
-                          configuration_url: res['incoming_webhook']['channel_id'],
-                          token: res['access_token'],
-                          scope: res['scope']
-                        )
+    @team = Team.new( team_id: res['team_id'],
+                      scope: res['scope'],
+                      team_name: res['team_name'],
+                      channel_name: res['incoming_webhook']['channel'],
+                      channel_id: res['incoming_webhook']['channel_id'],
+                      url: res['incoming_webhook']['url'],
+                      configuration_url: res['incoming_webhook']['channel_id'],
+                      token: res['access_token'],
+                      scope: res['scope']
+                    )
   end
 
 end
