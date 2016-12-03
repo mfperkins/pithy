@@ -1,12 +1,14 @@
-.row#welcome-quote
-  .col.s6.offset-s3
-    %h1.center Too much agreement kills a chat
-    %h5.right
-      %em - Eldridge Cleaver
-.row#add-to-slack
-  .col.s6.offset-s3.valign-wrapper
-    .col.s8
-      %p.flow-text.valign We agree. Make your Slack conversations more pithy ...
-    .col.s4#logo-box
-      %a.valign{:href => new_api_v1_slack_auth_path}
-        %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
+.row
+  .col.s12#home-img
+    .row#welcome-quote
+      .col.s10.offset-s1
+        %h1.center Too much agreement kills a chat
+        %h5.right
+          %em - Eldridge Cleaver
+    .row#add-to-slack
+      .col.s3.offset-s1
+        .col.s12
+          %p.flow-text We agree. Make your Slack conversations more pithy ...
+        .col.s12#logo-box
+          %a{:href => new_api_v1_slack_auth_path}
+            %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
