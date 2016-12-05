@@ -67,7 +67,7 @@ class Slack::Responder
     @the_response[:attachments][0]["color"] = "#ffb300"
     @the_response[:attachments][0]["title"] = "As #{get_name} would say..."
     @the_response[:attachments][0]["title_link"] = "https://impithy.herokuapp.com" + get_link.to_s
-    @the_response[:attachments][0][:fields][0]["title"] = get_quote.to_s
+    @the_response[:attachments][0][:fields][0]["value"] = get_quote.to_s
     @the_response[:attachments][0][:fields][0]["short"] = false
     @the_response[:attachments][0][:footer] = "posted by @#{@user_name}"
   end

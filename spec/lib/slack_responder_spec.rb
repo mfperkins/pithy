@@ -20,7 +20,7 @@ describe Slack::Responder do
   context 'When using a valid nickname, it' do
 
     it '#response should give you a quote' do
-      expect(responder.response[:attachments][0][:fields][0]["title"]).to eq("Unbelievable. Unbelievable.")
+      expect(responder.response[:attachments][0][:fields][0]["value"]).to eq("Unbelievable. Unbelievable.")
     end
 
     it '#get_name should give you the first and last name of the person' do
