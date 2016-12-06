@@ -18,13 +18,18 @@ describe Slack::Responder do
     Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
     Person.create(first_name: "Winson", last_name: "Churchill", nickname: "churchill")
     Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
-    Quote.create(text: "Unbelievable. Unbelievable.", person_id: Person.last.id)
+    Quote.create(text: "Unbelievable. Unbelievable.", person_id: Person.last.id, display_count: 10)
   end
 
   context 'When using a valid nickname, it' do
 
     it '#response should give you a quote' do
       expect(responder.response[:attachments][0][:fields][0]["value"]).to eq("Unbelievable. Unbelievable.")
+    end
+
+    it '#response should increase the display_count by 1' do
+      responder.response
+      expect{responder.response}.to change{Quote.last.display_count}.by 1
     end
 
     it '#get_name should give you the first and last name of the person' do

@@ -38,9 +38,13 @@ class Slack::Responder
     people.join("")
   end
 
+  def get_quote
+    quote.text
+  end
+
   private
 
-  attr_reader :message, :name, :link, :the_response, :people
+  attr_reader :message, :name, :link, :the_response, :people, :quote
 
   def get_person
     @person = Person.friendly.find(@nickname)
@@ -49,8 +53,10 @@ class Slack::Responder
     rescue ActiveRecord::RecordNotFound
   end
 
-  def get_quote
-    @response ||= @person.quotes.select(:id, :text).sample['text']
+  def generate_quote
+    @quote ||= @person.quotes.sample
+    @quote.increment(:display_count, by = 1)
+    @quote.save
   end
 
   def generate_list_of_people
@@ -71,6 +77,7 @@ class Slack::Responder
   end
 
   def build_person_response
+    generate_quote
     @the_response[:response_type] = "in_channel"
     @the_response[:attachments] = [{}]
     @the_response[:attachments][0] = {fields: [{}]}
