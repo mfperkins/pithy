@@ -50,7 +50,6 @@ class Api::V1::SlackAuthController < ApplicationController
 
   def welcome_message
     url = @team.url
-    puts url
     welcome = HTTParty.post(url.to_str,
       :body => { :attachments => [ {
                     :fallback => "Welcome to Pithy. Type `/pithy help` for more info.",
@@ -60,13 +59,12 @@ class Api::V1::SlackAuthController < ApplicationController
                     :text => "Thanks for installing Pithy. Together we're going to make your Slack conversations way more exciting. Here are some tips to get you started.",
                     :fields => [
                       {
-                        :value => '*Send a quote*\nTo send a quote simply type `/pithy` plus the person you want a quote from. For example, `/pithy churchill` will send you a pithy quote from Winston Churchill.\n*Get a list of people*\nTo get a list of all the people you can get quotes from simply call `/pithy people`.\n*Help!*\nAsk Pithy for help with `/pithy help`.\n*Send feedback*\nWe\'d love to know what you think, so drop us a line: hello@itspithy.com.'
+                        :value => '*Send a quote*\\nTo send a quote simply type `/pithy` plus the person you want a quote from. For example, `/pithy churchill` will send you a pithy quote from Winston Churchill.\\n*Get a list of people*\\nTo get a list of all the people you can get quotes from simply call `/pithy people`.\\n*Help!*\nAsk Pithy for help with `/pithy help`.\\n*Send feedback*\\nWe\'d love to know what you think, so drop us a line: hello@itspithy.com.'
                       }
                     ],
                     :mrkdwn_in => ["fields"]
                } ] }.to_json,
       :headers => { 'Content-Type' => 'application/json' } )
-    puts welcome
   end
 
 end
