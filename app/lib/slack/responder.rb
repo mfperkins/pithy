@@ -57,7 +57,7 @@ class Slack::Responder
   def generate_quote
     @quote ||= @person.quotes.sample
     @quote_text = @quote.text
-    @quote.increment(:display_count, by = 1)
+    Quote.increment_counter(:display_count, @quote.id)
     @quote.save
   end
 
