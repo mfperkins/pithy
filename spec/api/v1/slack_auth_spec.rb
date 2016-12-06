@@ -2,8 +2,6 @@ require 'rails_helper'
 
 describe "API::V1::SlackAuthController" do
 
-
-
   context 'Team is able sign up for Pithy' do
 
     xit 'will create a new Team for you' do
