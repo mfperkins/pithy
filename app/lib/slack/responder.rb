@@ -55,7 +55,7 @@ class Slack::Responder
 
   def generate_list_of_people
     @people = []
-    all_people = Person.all
+    all_people = Person.order(:last_name)
     all_people.each do |someone|
       @people << "#{someone.first_name} #{someone.last_name} `/pithy #{someone.nickname}`\n"
     end
@@ -65,6 +65,7 @@ class Slack::Responder
     @the_response[:response_type] = "ephemeral"
     @the_response[:text] = "*How to use /pithy*"
     @the_response[:attachments] = [{}]
+    @the_response[:attachments][0]["color"] = "#36a64f"
     @the_response[:attachments][0]["text"] = "Hi @#{@user_name}! To get started, just type `/pithy` plus the name of an esteemed leader.\n\n For example, `/pithy trump` will return a wonderful quote from Donald Trump, such as 'Unbelievable. Unbelievable.'\n\n Isn't that unbelievable?!"
     @the_response[:attachments][0]["mrkdwn_in"] = ["text"]
   end
@@ -95,8 +96,9 @@ class Slack::Responder
   def build_list_of_people_response
     generate_list_of_people
     @the_response[:response_type] = "ephemeral"
-    @the_response[:text] = "*People on Pithy"
+    @the_response[:text] = "*People on Pithy*"
     @the_response[:attachments] = [{}]
+    @the_response[:attachments][0]["color"] = "#36a64f"
     @the_response[:attachments][0]["text"] = "Hi @#{@user_name}! Here is a list of all the people you can get quotes from:\n\n" + get_list_of_people.to_s
     @the_response[:attachments][0]["mrkdwn_in"] = ["text"]
 

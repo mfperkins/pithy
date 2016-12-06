@@ -16,6 +16,7 @@ describe Slack::Responder do
 
   before(:each) do
     Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
+    Person.create(first_name: "Winson", last_name: "Churchill", nickname: "churchill")
     Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
     Quote.create(text: "Unbelievable. Unbelievable.", person_id: Person.last.id)
   end
@@ -65,7 +66,7 @@ describe Slack::Responder do
   context "When called with '/people', it" do
 
     it 'should give you some tips' do
-      expect(responder_5.response[:attachments][0]["text"] ).to eq("Hi @someone! Here is a list of all the people you can get quotes from:\n\nBarack Obama `/pithy obama`\nDonald Trump `/pithy trump`\n")
+      expect(responder_5.response[:attachments][0]["text"] ).to eq("Hi @someone! Here is a list of all the people you can get quotes from:\n\nWinson Churchill `/pithy churchill`\nBarack Obama `/pithy obama`\nDonald Trump `/pithy trump`\n")
     end
 
   end
