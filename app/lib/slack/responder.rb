@@ -15,6 +15,8 @@ class Slack::Responder
   def response
     if @nickname == "help"
       build_help_response
+    elsif @nickname == "people"
+      build_list_of_people_response
     elsif @nickname == nil || @nickname.empty?
       build_no_nickname_response
     else
@@ -32,9 +34,13 @@ class Slack::Responder
     link
   end
 
+  def get_list_of_people
+    people.join("")
+  end
+
   private
 
-  attr_reader :message, :name, :link, :the_response
+  attr_reader :message, :name, :link, :the_response, :people
 
   def get_person
     @person = Person.friendly.find(@nickname)
@@ -47,8 +53,12 @@ class Slack::Responder
     @response ||= @person.quotes.select(:id, :text).sample['text']
   end
 
-  def help_text
-
+  def generate_list_of_people
+    @people = []
+    all_people = Person.all
+    all_people.each do |someone|
+      @people << "#{someone.first_name} #{someone.last_name} `/pithy #{someone.nickname}`\n"
+    end
   end
 
   def build_help_response
@@ -80,6 +90,16 @@ class Slack::Responder
   def build_no_nickname_response
     @the_response[:response_type] = "ephemeral"
     @the_response[:text] = "Hello @#{@user_name}, this is Pithy! Please tell me which esteemed leader you are looking for (e.g. `/pithy trump`)"
+  end
+
+  def build_list_of_people_response
+    generate_list_of_people
+    @the_response[:response_type] = "ephemeral"
+    @the_response[:text] = "*People on Pithy"
+    @the_response[:attachments] = [{}]
+    @the_response[:attachments][0]["text"] = "Hi @#{@user_name}! Here is a list of all the people you can get quotes from:\n\n" + get_list_of_people.to_s
+    @the_response[:attachments][0]["mrkdwn_in"] = ["text"]
+
   end
 
 end

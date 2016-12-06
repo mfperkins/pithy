@@ -7,12 +7,15 @@ describe Slack::Responder do
   nickname_2 = "example"
   nickname_3 = nil
   nickname_4 = "help"
+  nickname_5 = "people"
   let(:responder) {described_class.new(nickname, user_name)}
   let(:responder_2) {described_class.new(nickname_2, user_name)}
   let(:responder_3) {described_class.new(nickname_3, user_name)}
   let(:responder_4) {described_class.new(nickname_4, user_name)}
+  let(:responder_5) {described_class.new(nickname_5, user_name)}
 
   before(:each) do
+    Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
     Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
     Quote.create(text: "Unbelievable. Unbelievable.", person_id: Person.last.id)
   end
@@ -51,10 +54,18 @@ describe Slack::Responder do
 
   end
 
-  context "When called with ''/help', it" do
+  context "When called with '/help', it" do
 
     it 'should give you some tips' do
       expect(responder_4.response[:attachments][0]["text"] ).to eq("Hi @someone! To get started, just type `/pithy` plus the name of an esteemed leader.\n\n For example, `/pithy trump` will return a wonderful quote from Donald Trump, such as 'Unbelievable. Unbelievable.'\n\n Isn't that unbelievable?!")
+    end
+
+  end
+
+  context "When called with '/people', it" do
+
+    it 'should give you some tips' do
+      expect(responder_5.response[:attachments][0]["text"] ).to eq("Hi @someone! Here is a list of all the people you can get quotes from:\n\nBarack Obama `/pithy obama`\nDonald Trump `/pithy trump`\n")
     end
 
   end
