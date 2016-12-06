@@ -38,23 +38,25 @@ class Slack::Responder
     people.join("")
   end
 
-  def get_quote
-    quote.text
+  def get_quote_text
+    quote_text
   end
 
   private
 
-  attr_reader :message, :name, :link, :the_response, :people, :quote
+  attr_reader :message, :name, :link, :the_response, :people, :quote_text
 
   def get_person
-    @person = Person.friendly.find(@nickname)
+    @person = Person.friendly.find(@nickname.downcase)
     @name = @person.first_name + " " + @person.last_name
     @link = "/people/#{@nickname}"
+    generate_quote
     rescue ActiveRecord::RecordNotFound
   end
 
   def generate_quote
     @quote ||= @person.quotes.sample
+    @quote_text = @quote.text
     @quote.increment(:display_count, by = 1)
     @quote.save
   end
@@ -77,15 +79,14 @@ class Slack::Responder
   end
 
   def build_person_response
-    generate_quote
     @the_response[:response_type] = "in_channel"
     @the_response[:attachments] = [{}]
     @the_response[:attachments][0] = {fields: [{}]}
-    @the_response[:attachments][0]["fallback"] = get_quote.to_s
+    @the_response[:attachments][0]["fallback"] = get_quote_text.to_s
     @the_response[:attachments][0]["color"] = "#ffb300"
     @the_response[:attachments][0]["title"] = "As #{get_name} would say..."
     @the_response[:attachments][0]["title_link"] = "https://impithy.herokuapp.com" + get_link.to_s
-    @the_response[:attachments][0][:fields][0]["value"] = get_quote.to_s
+    @the_response[:attachments][0][:fields][0]["value"] = get_quote_text.to_s
     @the_response[:attachments][0][:fields][0]["short"] = false
     @the_response[:attachments][0][:footer] = "posted by @#{@user_name}"
   end
