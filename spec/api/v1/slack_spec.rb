@@ -27,7 +27,7 @@ describe "Slack API" do
         "text"=>"help",
         "user_name"=>"someone"
       }
-      expect(response).to be_success
+      expect(response).to be_success 
       expect(response.body).to eq('{"response_type":"ephemeral","text":"*How to use /pithy*","attachments":[{"color":"#36a64f","text":"Hi @someone! To get started, just type `/pithy` plus the name of an esteemed leader.\n\n For example, `/pithy trump` will return a wonderful quote from Donald Trump, such as \'Unbelievable. Unbelievable.\'\n\n Isn\'t that unbelievable?!","mrkdwn_in":["text"]}]}')
 
     end
