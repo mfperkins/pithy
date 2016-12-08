@@ -9,23 +9,25 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = favicon_link_tag 'pithy_favicon.ico'
   %body
-    = render 'layouts/nav'
-    .container
-      - flash.each do |key, value|
-        - value.split("/").each do |flash_text|
-          :javascript
-            var toast_colours = {
-              "notice": 'green',
-              "success": 'green',
-              "error": 'orange',
-              "alert": 'orange'
-            };
-            function toast_colour(flashKey) {
-              return toast_colours[flashKey];
-            };
-            $(function(){Materialize.toast("#{flash_text}", 8000, toast_colour('#{key}'));});
-      = yield
+    %main
+      = render 'layouts/nav'
+      .container
+        - flash.each do |key, value|
+          - value.split("/").each do |flash_text|
+            :javascript
+              var toast_colours = {
+                "notice": 'green',
+                "success": 'green',
+                "error": 'orange',
+                "alert": 'orange'
+              };
+              function toast_colour(flashKey) {
+                return toast_colours[flashKey];
+              };
+              $(function(){Materialize.toast("#{flash_text}", 8000, toast_colour('#{key}'));});
+        = yield
 
-      %p.notice= notice
-      %p.alert= alert
+        %p.notice= notice
+        %p.alert= alert
+    = render 'layouts/footer'
     = render 'layouts/google_analytics'

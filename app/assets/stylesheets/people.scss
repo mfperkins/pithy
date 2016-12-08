@@ -9,6 +9,28 @@
   margin-top: 64px;
 }
 
+// Footer Styling
+
+ul#footer-content {
+  list-style-type: none;
+}
+
+ul#footer-content > li {
+  float: left;
+  margin-right: 2em;
+  margin-left: 2em;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 // Error messages styling
 
 #toast-container {
