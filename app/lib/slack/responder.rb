@@ -58,7 +58,6 @@ class Slack::Responder
     @quote ||= @person.quotes.sample
     @quote_text = @quote.text
     Quote.increment_counter(:display_count, @quote.id)
-    @quote.save
   end
 
   def generate_list_of_people

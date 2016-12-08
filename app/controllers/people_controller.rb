@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
   end
 
   def new
-    @person = Person.new
+    check_new_person_in_progress
   end
 
   def create
@@ -21,6 +21,8 @@ class PeopleController < ApplicationController
       @person.update(user_id: current_user.id)
       redirect_to root_path
     else
+      flash[:error] = @person.errors.full_messages.map{|o| o  }.join("/")
+      session[:person] = person_params
       redirect_to new_person_path
     end
   end
@@ -48,6 +50,15 @@ class PeopleController < ApplicationController
 
   def person_params
     params.require(:person).permit(:first_name, :last_name, :nickname.downcase, :image)
+  end
+
+  def check_new_person_in_progress
+    if session[:person]
+      @person = Person.new(session[:person])
+      session[:person] = nil
+    else
+      @person = Person.new
+    end
   end
 
 end
