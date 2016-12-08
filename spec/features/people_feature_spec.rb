@@ -54,4 +54,32 @@ feature 'List of all people' do
 
   end
 
+  context 'User logged in' do
+
+    before(:each) do
+      user_sign_up
+    end
+
+    scenario 'User cannot create a person with nickname "help"' do
+      visit '/'
+      click_on 'perm_identity'
+      fill_in 'person[first_name]', with: "I"
+      fill_in 'person[last_name]', with: "need"
+      fill_in 'person[nickname]', with: "help"
+      click_on "save"
+      expect(page.body).to have_content ("Nickname already taken. Choose another one!")
+    end
+
+    scenario 'User cannot create a person with nickname "people"' do
+      visit '/'
+      click_on 'perm_identity'
+      fill_in 'person[first_name]', with: "I"
+      fill_in 'person[last_name]', with: "want"
+      fill_in 'person[nickname]', with: "people"
+      click_on "save"
+      expect(page.body).to have_content ("Nickname already taken. Choose another one!")
+    end
+
+  end
+
 end

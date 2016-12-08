@@ -16,14 +16,10 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(person_params)
-    if @person.save
-      @person.update(user_id: current_user.id)
-      redirect_to root_path
+    if nickname_error
+      handle_nickname_error
     else
-      flash[:error] = @person.errors.full_messages.map{|o| o  }.join("/")
-      session[:person] = person_params
-      redirect_to new_person_path
+      create_new_person
     end
   end
 
@@ -60,5 +56,29 @@ class PeopleController < ApplicationController
       @person = Person.new
     end
   end
+
+  def nickname_error
+    reserved_nicknames = ["help", "people"]
+    reserved_nicknames.include?(person_params["nickname"])
+  end
+
+  def handle_nickname_error
+    flash[:error] = "Nickname already taken. Choose another one!"
+    session[:person] = person_params
+    redirect_to new_person_path
+  end
+
+  def create_new_person
+    @person = Person.new(person_params)
+    if @person.save
+      @person.update(user_id: current_user.id)
+      redirect_to root_path
+    else
+      flash[:error] = @person.errors.full_messages.map{|o| o  }.join("/")
+      session[:person] = person_params
+      redirect_to new_person_path
+    end
+  end
+
 
 end
