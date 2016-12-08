@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :quotes
 
-
+  get "/static/:page" => "static#show", :as => :static
   root "people#index"
 
   namespace :api do
