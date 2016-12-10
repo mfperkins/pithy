@@ -29,12 +29,12 @@ feature 'List of all people' do
 
     before(:each) do
       user_sign_up
-      add_person
+      add_person(first_name = "Bob", last_name = "Marley", nickname = "bob")
     end
 
     scenario 'User can create a new person' do
       visit '/'
-      expect(page).to have_content "Winston Churchill"
+      expect(page).to have_content "Bob Marley"
       expect(page.find('.card-image')['src']).to have_content("")
     end
 
@@ -43,13 +43,13 @@ feature 'List of all people' do
       click_on 'Edit'
       fill_in 'person[first_name]', with: "Mr"
       click_on 'save person'
-      expect(page).to have_content "Mr Churchill"
+      expect(page).to have_content "Mr Marley"
     end
 
     scenario 'User can edit a person they created' do
       visit '/'
       click_on 'Delete'
-      expect(page).to_not have_content "Winston Churchill"
+      expect(page).to_not have_content "Bob Marley"
     end
 
   end
