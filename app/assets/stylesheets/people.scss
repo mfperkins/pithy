@@ -43,6 +43,14 @@ main {
 
 // Welcome styling
 
+#welcome-carousel {
+  height: 800px
+}
+
+#quote-author {
+  padding-right: 3em;
+}
+
 #home-img {
   margin-top: 2em;
   background-image: url("pithy-home.jpg");
@@ -55,9 +63,13 @@ main {
   margin-top: 6em;
 }
 
-#add-to-slack {
-  margin-top: 3em;
-  margin-bottom: 10em;
+#get-started-box {
+  margin: 6em 6em 0 6em;
+}
+
+#final-line {
+  font-weight: bolder;
+  margin-top: 2em;
 }
 
 #intro-quote {
