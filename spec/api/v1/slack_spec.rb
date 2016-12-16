@@ -16,7 +16,7 @@ describe "Slack API" do
         "text"=>"trump"
       }
       expect(response).to be_success
-      expect(response.body).to eq('{"response_type":"in_channel","attachments":[{"fields":[{"value":"Unbelievable. Unbelievable.","short":false}],"fallback":"Unbelievable. Unbelievable.","color":"#ffb300","title":"As Donald Trump would say...","title_link":"https://impithy.herokuapp.com/people/trump","thumb_url":"default_image.jpg","footer":"posted by @someone"}]}')
+      expect(response.body).to eq('{"response_type":"in_channel","attachments":[{"fields":[{"value":"Unbelievable. Unbelievable.","short":false}],"fallback":"Unbelievable. Unbelievable.","color":"#ffb300","title":"As Donald Trump would say...","title_link":"https://impithy.herokuapp.com/people/trump","thumb_url":"https://s3-us-west-2.amazonaws.com/pithyimages/default_image.jpg","footer":"posted by @someone"}]}')
     end
 
     it 'will give you some tips for a help request (e.g. "/pithy help")' do

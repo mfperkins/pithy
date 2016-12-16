@@ -83,7 +83,6 @@ class Slack::Responder
   end
 
   def build_person_response
-    puts get_thumb_link
     @the_response[:response_type] = "in_channel"
     @the_response[:attachments] = [{}]
     @the_response[:attachments][0] = {fields: [{}]}
