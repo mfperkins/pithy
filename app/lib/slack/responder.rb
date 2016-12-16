@@ -34,6 +34,10 @@ class Slack::Responder
     link
   end
 
+  def get_thumb_link
+    thumb_link
+  end
+
   def get_list_of_people
     people.join("")
   end
@@ -44,12 +48,14 @@ class Slack::Responder
 
   private
 
-  attr_reader :message, :name, :link, :the_response, :people, :quote_text
+  attr_reader :message, :name, :link, :the_response, :people, :quote_text, :thumb_link
 
   def get_person
     @person = Person.friendly.find(@nickname.downcase)
     @name = @person.first_name + " " + @person.last_name
     @link = "/people/#{@nickname}"
+    @thumb_link = @person.image.url(:thumb)
+    puts @thumb_link
     generate_quote
     rescue ActiveRecord::RecordNotFound
   end
@@ -85,6 +91,7 @@ class Slack::Responder
     @the_response[:attachments][0]["color"] = "#ffb300"
     @the_response[:attachments][0]["title"] = "As #{get_name} would say..."
     @the_response[:attachments][0]["title_link"] = "https://impithy.herokuapp.com" + get_link.to_s
+    @the_response[:attachments][0]["thumb_url"] =  get_thumb_link.to_s
     @the_response[:attachments][0][:fields][0]["value"] = get_quote_text.to_s
     @the_response[:attachments][0][:fields][0]["short"] = false
     @the_response[:attachments][0][:footer] = "posted by @#{@user_name}"
