@@ -15,8 +15,8 @@ describe Slack::Responder do
   let(:responder_5) {described_class.new(nickname_5, user_name)}
 
   before(:each) do
-    Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama")
-    Person.create(first_name: "Winson", last_name: "Churchill", nickname: "churchill")
+    Person.create(first_name: "Barack", last_name: "Obama", nickname: "obama", )
+    Person.create(first_name: "Winson", last_name: "Churchill", nickname: "churchill" )
     Person.create(first_name: "Donald", last_name: "Trump", nickname: "trump")
     Quote.create(text: "Unbelievable. Unbelievable.", person_id: Person.last.id, display_count: 10)
   end
@@ -40,6 +40,11 @@ describe Slack::Responder do
     it '#get_link should return the URL of the person' do
       responder.response
       expect(responder.get_link).to eq("/people/trump")
+    end
+
+    it '#get_thumb_link should return a thumbnail' do
+      responder.response
+      expect(responder.get_thumb_link).to eq("default_image.jpg")
     end
 
   end
