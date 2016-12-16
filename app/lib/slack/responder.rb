@@ -35,7 +35,7 @@ class Slack::Responder
   end
 
   def get_thumb_link
-    thumb_link
+    thumb_link == "default_image.jpg" ? thumb_link : thumb_link.slice((thumb_link.index('people')..-1))
   end
 
   def get_list_of_people
@@ -55,7 +55,6 @@ class Slack::Responder
     @name = @person.first_name + " " + @person.last_name
     @link = "/people/#{@nickname}"
     @thumb_link = @person.image.url(:thumb)
-    puts @thumb_link
     generate_quote
     rescue ActiveRecord::RecordNotFound
   end
@@ -84,6 +83,7 @@ class Slack::Responder
   end
 
   def build_person_response
+    puts get_thumb_link
     @the_response[:response_type] = "in_channel"
     @the_response[:attachments] = [{}]
     @the_response[:attachments][0] = {fields: [{}]}
@@ -91,7 +91,7 @@ class Slack::Responder
     @the_response[:attachments][0]["color"] = "#ffb300"
     @the_response[:attachments][0]["title"] = "As #{get_name} would say..."
     @the_response[:attachments][0]["title_link"] = "https://impithy.herokuapp.com" + get_link.to_s
-    @the_response[:attachments][0]["thumb_url"] =  get_thumb_link.to_s
+    @the_response[:attachments][0]["thumb_url"] =  "https://s3-us-west-2.amazonaws.com/pithyimages/" + get_thumb_link.to_s
     @the_response[:attachments][0][:fields][0]["value"] = get_quote_text.to_s
     @the_response[:attachments][0][:fields][0]["short"] = false
     @the_response[:attachments][0][:footer] = "posted by @#{@user_name}"
