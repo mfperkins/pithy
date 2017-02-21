@@ -1,6 +1,6 @@
 # Pithy
 
-[Pithy](https://www.itspithy.com) Pithy is a witty bot which inserts quotes from your favorite leaders straight into your [Slack](http://www.slack.com) conversations. For example, if you type `/pithy churchill`, Pithy might respond:
+[Pithy](https://www.itspithy.com) is a witty bot which inserts quotes from your favorite leaders straight into your [Slack](http://www.slack.com) conversations. For example, if you type `/pithy churchill`, Pithy might respond:
 
 > As Winston Churchill would say ...
 > History will be kind to me for I intend to write it.
@@ -11,8 +11,6 @@ Other commands you can give Pithy in Slack are:
 * `/pithy people` - For a list of people you can get quotes from
 
 To contribute to this project, please fork this repo and make a pull request with changes.
-
----
 
 ## Development Setup
 
